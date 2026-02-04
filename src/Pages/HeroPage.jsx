@@ -8,7 +8,7 @@ export default function HeroPage() {
       
         {/* text-7xl is size, font-black is thickest weight, transition makes it feel alive */}
         <h1 className="text-9xl text-white tracking-tighter hover:text-blue-400 transition-colors duration-300 cursor-default">
-          hello world
+          Test 
         </h1>
 
     </div>
