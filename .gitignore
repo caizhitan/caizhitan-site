@@ -27,6 +27,4 @@ dist-ssr
 .wrangler
 .dev.vars
 
-# packages
-package-lock.json
-package.json
+
