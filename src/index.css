@@ -1,23 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,100..700;1,100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=ZCOOL+QingKe+HuangYou&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --font-primary: "Bebas Neue", sans-serif;
+  --font-secondary: "IBM Plex Mono", monospace;
+  --font-chinese: "ZCOOL QingKe HuangYou", sans-serif;
+
+  --color-grey: #242424;
+  --color-red: #FF0000;
+  --color-teal: oklch(0.7815 0.1616 166.02);
+}
 
 @layer base {
-  html {
-    /* Apply the primary font to the root html element */
-    @apply font-primary antialiased;
-    
-    line-height: 1.5;
-    font-weight: 400;
 
-    color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-  }
-
-  body {
+  html,
+  body,
+  #root {
     margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    @apply antialiased;
+    font-family: var(--font-primary);
   }
 }
