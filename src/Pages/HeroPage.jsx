@@ -1,16 +1,14 @@
 import React from 'react'
-
+import AnimatedGradientCircle from '../components/AnimatedGradientCircle'
 
 export default function HeroPage() {
   return (
-    /* min-h-screen fills the height, flex + items-center + justify-center centers everything */
-    <div className="flex flex-col min-h-dvh w-full items-start justify-end p-10 bg-zinc-900">
-      
-        {/* text-7xl is size, font-black is thickest weight, transition makes it feel alive */}
-        <h1 className="text-9xl text-white tracking-tighter hover:text-blue-400 transition-colors duration-300 cursor-default">
-          hello world
-        </h1>
-
+    <div className="relative min-h-dvh w-full overflow-hidden">
+       <AnimatedGradientCircle />
+      <div className="absolute inset-0 flex flex-row items-center justify-center p-10">
+        <h1 className="text-4xl font-bold">Hi</h1>
+        
+      </div>
     </div>
   )
 }
