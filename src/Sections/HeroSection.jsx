@@ -3,12 +3,13 @@ import { Environment, Lightformer } from '@react-three/drei'
 import { Physics } from '@react-three/rapier'
 import Band from '../ThreeJS/Band'
 import Navigation from '../Components/Navigation'
+import ScrollLockToggle from '../Components/ScrollLockToggle'
 
 export default function HeroSection() {
   return (
     <section className="relative h-screen w-full">
       {/* Three.js Canvas - Full viewport */}
-      <Canvas 
+      <Canvas
         camera={{ position: [0, 0, 13], fov: 25 }}
         className="absolute inset-0 w-full h-full"
       >
@@ -36,6 +37,12 @@ export default function HeroSection() {
           Scroll down to explore more
         </p>
       </div>
+
+      {/* Scroll Lock Toggle - Bottom Right */}
+      <div className="absolute bottom-[10%] right-[5%] z-10 pointer-events-none">
+        <ScrollLockToggle />
+      </div>
+
     </section>
   )
 }

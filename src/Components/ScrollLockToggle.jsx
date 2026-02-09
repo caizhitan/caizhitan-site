@@ -1,0 +1,83 @@
+import { useState, useEffect } from 'react'
+import lockIcon from '../assets/icons/square-lock.svg'
+import unlockIcon from '../assets/icons/square-unlock.svg'
+
+export default function ScrollLockToggle() {
+    const [isLocked, setIsLocked] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
+
+    // Detect if device is mobile/tablet
+    useEffect(() => {
+        const checkMobile = () => {
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+            const isSmallScreen = window.innerWidth <= 1024
+            setIsMobile(isTouchDevice && isSmallScreen)
+        }
+
+        checkMobile()
+        window.addEventListener('resize', checkMobile)
+        return () => window.removeEventListener('resize', checkMobile)
+    }, [])
+
+    // Handle scroll locking
+    useEffect(() => {
+        const preventScroll = (e) => {
+            // Only prevent if the target is not the canvas or within it
+            const isCanvas = e.target.closest('canvas') || e.target.tagName === 'CANVAS'
+            if (!isCanvas) {
+                e.preventDefault()
+            }
+        }
+
+        if (isLocked) {
+            // Prevent scrolling via touch events but allow canvas interaction
+            document.body.style.overflow = 'hidden'
+            document.body.style.touchAction = 'none'
+
+            // Prevent default scroll behavior on touchmove
+            document.addEventListener('touchmove', preventScroll, { passive: false })
+        } else {
+            // Restore scrolling
+            document.body.style.overflow = ''
+            document.body.style.touchAction = ''
+            document.removeEventListener('touchmove', preventScroll)
+        }
+
+        return () => {
+            // Cleanup on unmount
+            document.body.style.overflow = ''
+            document.body.style.touchAction = ''
+            document.removeEventListener('touchmove', preventScroll)
+        }
+    }, [isLocked])
+
+    // Don't render on desktop
+    if (!isMobile) return null
+
+    return (
+        <button
+            onClick={() => setIsLocked(!isLocked)}
+            className={`
+        group
+        p-4 rounded-full
+        transition-all duration-300 ease-in-out
+        shadow-lg active:scale-95
+        backdrop-blur-md border-2
+        pointer-events-auto
+        ${isLocked
+                    ? 'bg-blue-500/90 active:bg-blue-600'
+                    : 'bg-white/90 active:bg-white/20'
+                }
+      `}
+            aria-label={isLocked ? 'Unlock scroll' : 'Lock scroll to drag lanyard'}
+        >
+            <div className="relative w-6 h-6 transition-transform duration-300">
+                <img
+                    src={isLocked ? lockIcon : unlockIcon}
+                    alt={isLocked ? 'Lock' : 'Unlock'}
+                    className="w-6 h-6"
+                />
+            </div>
+        </button>
+    )
+}
