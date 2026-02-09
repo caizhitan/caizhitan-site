@@ -4,7 +4,7 @@ export default function AboutSection() {
       <div className="max-w-3xl text-center">
         <h2 className="text-5xl mb-8">About Section</h2>
         <p className="text-xl leading-relaxed">
-          This is regular HTML/CSS content below the Three.js hero section.
+          This is regular HTML/CSS content below the Three.js hero section. testttt
           You can add any React components here - forms, galleries, testimonials, etc.
         </p>
       </div>
