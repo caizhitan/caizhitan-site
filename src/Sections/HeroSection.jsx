@@ -5,9 +5,10 @@ import Band from '../ThreeJS/Band'
 import Navigation from '../Components/Navigation'
 import ScrollLockToggle from '../Components/ScrollLockToggle'
 
+
 export default function HeroSection() {
   return (
-    <section className="relative h-screen w-full">
+    <section id="home" className="relative h-screen w-full">
       {/* Three.js Canvas - Full viewport */}
       <Canvas
         camera={{ position: [0, 0, 13], fov: 25 }}
@@ -28,20 +29,8 @@ export default function HeroSection() {
 
       <Navigation />
 
-      {/* Hero Text - On top of Canvas */}
-      <div className="absolute bottom-[10%] left-[5%] z-10 pointer-events-none">
-        <h1 className="text-white text-6xl font-bold m-0 drop-shadow-lg">
-          Welcome 1
-        </h1>
-        <p className="text-white/80 text-xl mt-4">
-          Scroll down to explore more
-        </p>
-      </div>
-
-      {/* Scroll Lock Toggle - Bottom Right */}
-      <div className="absolute bottom-[10%] right-[5%] z-10 pointer-events-none">
-        <ScrollLockToggle />
-      </div>
+      {/* Instruction text and lock toggle */}
+      <ScrollLockToggle />
 
     </section>
   )
