@@ -1,30 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import lockIcon from '../assets/icons/square-lock.svg'
 import unlockIcon from '../assets/icons/square-unlock.svg'
 
-export default function ScrollLockToggle() {
-    const [isLocked, setIsLocked] = useState(false)
-    const [isMobile, setIsMobile] = useState(false)
-
-    // Detect if device is mobile/tablet
-    useEffect(() => {
-        const checkMobile = () => {
-            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
-            const isSmallScreen = window.innerWidth <= 1024
-            setIsMobile(isTouchDevice && isSmallScreen)
-        }
-
-        checkMobile()
-        window.addEventListener('resize', checkMobile)
-        return () => window.removeEventListener('resize', checkMobile)
-    }, [])
-
+export default function ScrollLockToggle({ isLocked, setIsLocked, isMobile }) {
     // Listen for unlock event from navigation
     useEffect(() => {
         const handleUnlock = () => setIsLocked(false)
         window.addEventListener('unlock-scroll', handleUnlock)
         return () => window.removeEventListener('unlock-scroll', handleUnlock)
-    }, [])
+    }, [setIsLocked])
 
     // Handle scroll locking
     useEffect(() => {

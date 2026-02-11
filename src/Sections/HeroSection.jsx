@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Environment, Lightformer } from '@react-three/drei'
 import { Physics } from '@react-three/rapier'
@@ -7,12 +8,30 @@ import ScrollLockToggle from '../Components/ScrollLockToggle'
 
 
 export default function HeroSection() {
+  const [isLocked, setIsLocked] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Detect if device is mobile/tablet
+  useEffect(() => {
+    const checkMobile = () => {
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+      const isSmallScreen = window.innerWidth <= 1024
+      setIsMobile(isTouchDevice && isSmallScreen)
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   return (
     <section id="home" className="relative h-screen w-full">
       {/* Three.js Canvas - Full viewport */}
+      {/* On mobile: pointer-events disabled until scroll is locked */}
       <Canvas
         camera={{ position: [0, 0, 13], fov: 25 }}
         className="absolute inset-0 w-full h-full"
+        style={{ pointerEvents: isMobile && !isLocked ? 'none' : 'auto' }}
       >
         <ambientLight intensity={Math.PI} />
         <Physics interpolate gravity={[0, -40, 0]} timeStep={1 / 60}>
@@ -30,7 +49,11 @@ export default function HeroSection() {
       <Navigation />
 
       {/* Instruction text and lock toggle */}
-      <ScrollLockToggle />
+      <ScrollLockToggle
+        isLocked={isLocked}
+        setIsLocked={setIsLocked}
+        isMobile={isMobile}
+      />
 
     </section>
   )
