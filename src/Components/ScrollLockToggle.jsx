@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
-import lockIcon from '../assets/icons/square-lock.svg'
-import unlockIcon from '../assets/icons/square-unlock.svg'
+import { LockIcon, UnlockIcon } from './Icons'
 
 export default function ScrollLockToggle({ isLocked, setIsLocked, isMobile }) {
     // Listen for unlock event from navigation
@@ -71,11 +70,11 @@ export default function ScrollLockToggle({ isLocked, setIsLocked, isMobile }) {
                         aria-label={isLocked ? 'Unlock scroll' : 'Lock scroll to drag lanyard'}
                     >
                         <div className="relative w-6 h-6 transition-transform duration-300">
-                            <img
-                                src={isLocked ? lockIcon : unlockIcon}
-                                alt={isLocked ? 'Lock' : 'Unlock'}
-                                className="w-6 h-6"
-                            />
+                           {isLocked ? (
+                               <LockIcon className="w-6 h-6" />
+                           ) : (
+                               <UnlockIcon className="w-6 h-6" />
+                           )}
                         </div>
                     </button>
                 </div>

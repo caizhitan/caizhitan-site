@@ -9,6 +9,7 @@
   --color-grey: #242424;
   --color-red: #FF0000;
   --color-teal: oklch(0.7815 0.1616 166.02);
+  --color-black: oklch(0 0 0);
 }
 
 @layer base {

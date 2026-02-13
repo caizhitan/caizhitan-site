@@ -14,9 +14,20 @@ export default function HeroSection() {
   // Detect if device is mobile/tablet
   useEffect(() => {
     const checkMobile = () => {
-      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+      // 1. Check strict mobile/tablet UAs
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera
+      const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)
+
+      // 2. Check for iPad pretending to be Mac (iPadOS 13+)
+      // iPadOS often reports "Macintosh" in UA but has touch points
+      const isIPadOS = /Macintosh/i.test(userAgent) && navigator.maxTouchPoints > 0
+
+      // 3. Screen width check (fallback)
       const isSmallScreen = window.innerWidth <= 1024
-      setIsMobile(isTouchDevice && isSmallScreen)
+      const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+
+      // Combine conditions
+      setIsMobile(isMobileUA || isIPadOS || (isSmallScreen && isTouch))
     }
 
     checkMobile()
@@ -25,7 +36,7 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section id="home" className="relative h-screen w-full">
+    <section id="home" className="relative h-svh w-full">
       {/* Three.js Canvas - Full viewport */}
       {/* On mobile: pointer-events disabled until scroll is locked */}
       <Canvas
