@@ -73,9 +73,9 @@ export default function LoadingScreen({ onComplete, canSwipe }) {
             {/* Rolling Text */}
             <div className="absolute top-8 left-8 h-8 overflow-hidden">
                 <div className="overlay-text flex flex-col translate-y-8">
-                    <p className="text-white h-8 flex items-center uppercase font-secondary text-base font-medium leading-tight">Built in SG</p>
-                    <p className="text-white h-8 flex items-center uppercase font-secondary text-base font-medium leading-tight">2026</p>
-                    <p className="text-white h-8 flex items-center uppercase font-secondary text-base font-medium leading-tight">Welcome</p>
+                    <p className="text-white h-8 flex items-center uppercase font-secondary text-base font-medium leading-tight">[Built in SG]</p>
+                    <p className="text-white h-8 flex items-center uppercase font-secondary text-base font-medium leading-tight">[2026]</p>
+                    <p className="text-white h-8 flex items-center uppercase font-secondary text-base font-medium leading-tight">[Welcome]</p>
                 </div>
             </div>
         </div>

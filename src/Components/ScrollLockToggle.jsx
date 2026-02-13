@@ -45,7 +45,7 @@ export default function ScrollLockToggle({ isLocked, setIsLocked, isMobile }) {
         <>
             {/* Instruction Text - Bottom Left */}
             <div className="absolute bottom-0 left-0 p-6 z-10 pointer-events-none">
-                <p className="text-white/80 text-base font-secondary">
+                <p className="text-grey text-base font-secondary">
                     {isMobile ? '[Lock to play]' : '[Drag to play]'}
                 </p>
             </div>

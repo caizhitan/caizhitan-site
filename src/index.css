@@ -1,15 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,100..700;1,100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=ZCOOL+QingKe+HuangYou&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,100..700;1,100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=ZCOOL+QingKe+HuangYou&display=swap');
+
 @import "tailwindcss";
 
 @theme {
   --font-primary: "Bebas Neue", sans-serif;
   --font-secondary: "IBM Plex Mono", monospace;
+  --font-cursive: "Beau Rivage", cursive;
   --font-chinese: "ZCOOL QingKe HuangYou", sans-serif;
 
   --color-grey: #242424;
   --color-red: #FF0000;
   --color-teal: oklch(0.7815 0.1616 166.02);
   --color-black: oklch(0 0 0);
+  --color-grey: oklch(0.6929 0.0052 17.34)
 }
 
 @layer base {
