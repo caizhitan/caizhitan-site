@@ -9,11 +9,11 @@ export default function Navigation() {
           <div className="text-white text-4xl font-bold pointer-events-auto">
             CZT
           </div>
-          <div className="flex flex-col text-right font-secondary pointer-events-auto">
-            <a href="#home" className="text-white" onClick={handleNavClick}>• Home</a>
-            <a href="#about" className="text-white" onClick={handleNavClick}>About</a>
-            <a href="#work" className="text-white" onClick={handleNavClick}>Work</a>
-            <a href="#contact" className="text-white" onClick={handleNavClick}>Contact</a>
+          <div className="flex flex-col text-right text-white font-secondary font-medium pointer-events-auto">
+            <a href="#home" onClick={handleNavClick}>• Home</a>
+            <a href="#about" onClick={handleNavClick}>About</a>
+            <a href="#work" onClick={handleNavClick}>Work</a>
+            <a href="#contact" onClick={handleNavClick}>Contact</a>
           </div>
         </nav>
     )

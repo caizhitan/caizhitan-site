@@ -12,7 +12,8 @@
   --color-red: #FF0000;
   --color-teal: oklch(0.7815 0.1616 166.02);
   --color-black: oklch(0 0 0);
-  --color-grey: oklch(0.6929 0.0052 17.34)
+  --color-grey: oklch(0.6929 0.0052 17.34);
+  --color-white: oklch(0.997 0 0);
 }
 
 @layer base {
