@@ -6,6 +6,7 @@ import TP from '../assets/TP.svg'
 import LTA from '../assets/LTA.svg'
 import NTU from '../assets/NTU.svg'
 import ExperienceCard from '../Components/ExperienceCard'
+import ScrollableImageStack from '../Components/ScrollableImageStack'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -13,7 +14,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function AboutSection() {
-  const images = [img1, img2, img3]
+  const images = [img1]
 
   const experienceRef = useRef(null)
 
@@ -74,18 +75,7 @@ export default function AboutSection() {
             </p>
           </div>
         </div>
-        <div className="w-full md:w-1/2 flex flex-col gap-0 ">
-          {images.map((img, index) => (
-            <div key={index} className="h-screen w-full sticky top-0 flex items-center justify-center">
-              <img
-                src={img}
-                alt={`About Me ${index + 1}`}
-                className="w-[80%] h-[60%] object-cover rounded-lg grayscale hover:grayscale-0 transition-all duration-500"
-              />
-            </div>
-
-          ))}
-        </div>
+        <ScrollableImageStack images={images} />
       </div>
 
       {/* Experience Section - Wrapped for Pinning */}

@@ -14,7 +14,7 @@ export default function LoadingScreen({ onComplete, canSwipe }) {
         // Counter Animation
         tl.to(counterObj, {
             value: 100,
-            duration: 5, // Total load time
+            duration: 1, // Total load time
             ease: 'power1.out',
             onUpdate: () => {
                 if (counterRef.current) {
@@ -32,7 +32,7 @@ export default function LoadingScreen({ onComplete, canSwipe }) {
             .to('.overlay-text', {
                 y: '0',
                 duration: 0.75,
-                ease: 'power3.out', // approximated 'hop'
+                ease: 'power3.out', 
             })
             .to('.overlay-text', {
                 y: '-2rem',
@@ -46,8 +46,6 @@ export default function LoadingScreen({ onComplete, canSwipe }) {
                 ease: 'power3.out',
                 delay: 0.75,
             })
-            // Ensure final state is clean, though component unlocks via Suspense
-            // Ensure final state is clean, though component unlocks via Suspense
     }, [])
 
     useEffect(() => {

@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useLayoutEffect, Suspense, lazy } from 'react';
 import Lenis from 'lenis'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGLTF, useTexture } from '@react-three/drei'
 import LoadingScreen from './Components/LoadingScreen'
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Helper to signal when Suspense is ready
 function LoadSignal({ onReady }) {
@@ -16,9 +20,7 @@ const LandingPage = lazy(() => import('./Pages/LandingPage'))
 function App() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isReady, setIsReady] = useState(false)
-  // Preload assets in parallel with the timer
   useEffect(() => {
-    // 3D Assets
     useGLTF.preload('/assets/lanyard.glb')
     useTexture.preload('/assets/lanyard_band.jpg')
   }, [])
@@ -26,15 +28,16 @@ function App() {
   useEffect(() => {
     const lenis = new Lenis()
 
-    function raf(time) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
+    lenis.on('scroll', ScrollTrigger.update)
 
-    requestAnimationFrame(raf)
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000)
+    })
+    gsap.ticker.lagSmoothing(0)
 
     return () => {
       lenis.destroy()
+      gsap.ticker.remove((time) => lenis.raf(time * 1000))
     }
   }, [])
 
