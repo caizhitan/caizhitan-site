@@ -6,7 +6,7 @@ export default function Navigation() {
 
     return (
         <nav className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-10 pointer-events-none">
-          <div className="text-white text-4xl font-bold pointer-events-auto">
+          <div className="text-white text-3xl font-fun pointer-events-auto">
             CZT
           </div>
           <div className="flex flex-col text-right text-white font-secondary font-medium pointer-events-auto">

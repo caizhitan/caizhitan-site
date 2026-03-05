@@ -1,94 +1,81 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 import ProjectCard from '../Components/ProjectCard';
-import img1 from '../assets/img_1.jpg';
-import img2 from '../assets/img_2.jpg';
-import img3 from '../assets/img_3.jpg';
-import img4 from '../assets/img_4.jpg';
+import { projectData } from '../Content/WorkSectionContent';
 
 gsap.registerPlugin(ScrollTrigger);
-
-
-const projectData = [
-  { id: 'card-1', subtitle: 'IES Prestigious Awards 2023', title: 'eNutri', description: 'A nutrition app that helps users track their daily intake and get personalized recommendations.', images: [img1, img2, img3, img4], bgColor: '#3d2fa9' },
-  { id: 'card-2', subtitle: 'Fluid Structures', title: 'Skyline Drift', images: [img2], bgColor: '#ff7722' },
-  { id: 'card-3', subtitle: 'Wired Thought', title: 'Neural Assembly', images: [img3, img4], bgColor: '#ff3d33' },
-  { id: 'card-4', subtitle: 'Silent Repetition', title: 'Learning Loop', images: [img1, img2, img3, img4], bgColor: '#785f47' },
-];
 
 export default function WorkSection() {
   const containerRef = useRef(null);
   const cardsRef = useRef([]);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const cards = cardsRef.current.filter(Boolean);
-      if (cards.length === 0) return;
+  useGSAP(() => {
+    const cards = cardsRef.current.filter(Boolean);
+    if (cards.length === 0) return;
 
-      const totalCards = cards.length;
-      const segmentSize = totalCards > 1 ? 1 / (totalCards - 1) : 1;
-      const cardYOffset = 5;
-      const cardScaleStep = 0.075;
+    const totalCards = cards.length;
+    const segmentSize = totalCards > 1 ? 1 / (totalCards - 1) : 1;
+    const cardYOffset = 3;
+    const cardScaleStep = 0.075;
 
-      // Cards setup
-      cards.forEach((card, i) => {
-        gsap.set(card, {
-          xPercent: -50,
-          yPercent: -50 + i * cardYOffset,
-          scale: 1 - i * cardScaleStep,
-          rotationX: 0,
-        });
-      });
-
-      // Pin ONLY the cards container. Let the header scroll away naturally!
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: "top top", // When the cards container fully enters the screen
-        end: `+=${window.innerHeight * 6}px`, // 6 screens of scrolling; adjust for speed of scrolling
-        pin: true,
-        pinSpacing: true,
-        pinType: ScrollTrigger.isTouch === 1 ? 'fixed' : 'transform', // Forces reliable hardware-pinned positioning on mobile devices
-        scrub: 0.5,
-        onUpdate: (self) => {
-          const progress = self.progress;
-
-          const activeIndex = Math.min(
-            Math.floor(progress / segmentSize),
-            totalCards - 1,
-          );
-          const segProgress = (progress - activeIndex * segmentSize) / segmentSize;
-
-          cards.forEach((card, i) => {
-            if (i < activeIndex) {
-              gsap.set(card, {
-                yPercent: -250,
-                rotationX: 50,
-              });
-            } else if (i === activeIndex) {
-              gsap.set(card, {
-                yPercent: gsap.utils.interpolate(-50, -200, segProgress),
-                rotationX: gsap.utils.interpolate(0, 50, segProgress),
-                scale: 1,
-              });
-            } else {
-              const behindIndex = i - activeIndex;
-              const currentYOffset = (behindIndex - segProgress) * cardYOffset;
-              const currentScale = 1 - (behindIndex - segProgress) * cardScaleStep;
-
-              gsap.set(card, {
-                yPercent: -50 + currentYOffset,
-                rotationX: 0,
-                scale: currentScale,
-              });
-            }
-          });
-        },
+    // Cards setup
+    cards.forEach((card, i) => {
+      gsap.set(card, {
+        xPercent: -50,
+        yPercent: -50 + i * cardYOffset,
+        scale: 1 - i * cardScaleStep,
+        rotationX: 0,
       });
     });
 
-    return () => ctx.revert();
-  }, []);
+    // Pin ONLY the cards container. Let the header scroll away naturally!
+    ScrollTrigger.create({
+      trigger: containerRef.current,
+      start: "top top", // When the cards container fully enters the screen
+      end: "+=600%", // 6 screens of scrolling, dynamically measures trigger height on resize
+      invalidateOnRefresh: true,
+      pin: true,
+      pinSpacing: true,
+      //pinType: ScrollTrigger.isTouch === 1 ? 'fixed' : 'transform', // Forces reliable hardware-pinned positioning on mobile devices
+      scrub: 0.5,
+      onUpdate: (self) => {
+        const progress = self.progress;
+
+        const activeIndex = Math.min(
+          Math.floor(progress / segmentSize),
+          totalCards - 1,
+        );
+        const segProgress = (progress - activeIndex * segmentSize) / segmentSize;
+
+        cards.forEach((card, i) => {
+          if (i < activeIndex) {
+            gsap.set(card, {
+              yPercent: -250,
+              rotationX: 50,
+            });
+          } else if (i === activeIndex) {
+            gsap.set(card, {
+              yPercent: gsap.utils.interpolate(-50, -200, segProgress),
+              rotationX: gsap.utils.interpolate(0, 50, segProgress),
+              scale: 1,
+            });
+          } else {
+            const behindIndex = i - activeIndex;
+            const currentYOffset = (behindIndex - segProgress) * cardYOffset;
+            const currentScale = 1 - (behindIndex - segProgress) * cardScaleStep;
+
+            gsap.set(card, {
+              yPercent: -50 + currentYOffset,
+              rotationX: 0,
+              scale: currentScale,
+            });
+          }
+        });
+      },
+    });
+  }, { scope: containerRef });
 
   return (
     <section id="work" className="bg-zinc-800 text-white w-full">
@@ -101,7 +88,17 @@ export default function WorkSection() {
       </div>
 
       {/* Pinned Cards Container */}
-      <div ref={containerRef} className="relative w-full h-screen overflow-hidden" style={{ perspective: '1000px' }}>
+      <div 
+        ref={containerRef} 
+        className="relative w-full h-screen overflow-hidden" 
+        style={{ 
+          perspective: '1000px', 
+          clipPath: 'inset(0)',
+          transform: 'translateZ(0)',
+          maskImage: 'linear-gradient(white, white)',
+          WebkitMaskImage: 'linear-gradient(white, white)'
+        }}
+      >
         {projectData.map((data, index) => (
           <ProjectCard
             key={data.id}

@@ -35,6 +35,8 @@ export default function AboutSection() {
           pin: true,
           scrub: 0.5,
           anticipatePin: 1,
+          invalidateOnRefresh: true,
+          refreshPriority: 1,
         }
       })
 
@@ -87,6 +89,11 @@ export default function AboutSection() {
           <h2 className="text-5xl font-primary">The</h2>
           <h2 className="text-5xl font-cursive pb-2">journey</h2>
           <h2 className="text-5xl font-primary">Till Today</h2>
+          <div className='max-w-3xs text-left'>
+            <p className="text-base font-medium font-secondary text-grey">
+              A comprehensive overview of my experiences
+            </p>
+          </div>
         </div>
 
         <div className="w-full min-h-screen md:w-1/2 flex flex-col justify-center items-center">
