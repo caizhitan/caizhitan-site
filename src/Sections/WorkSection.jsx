@@ -39,7 +39,7 @@ export default function WorkSection() {
       pin: true,
       pinSpacing: true,
       //pinType: ScrollTrigger.isTouch === 1 ? 'fixed' : 'transform', // Forces reliable hardware-pinned positioning on mobile devices
-      scrub: 0.5,
+      scrub: true,
       onUpdate: (self) => {
         const progress = self.progress;
 
@@ -79,7 +79,6 @@ export default function WorkSection() {
 
   return (
     <section id="work" className="bg-zinc-800 text-white w-full">
-      {/* Scrollable Header */}
       <div className="w-full flex-shrink-0 flex flex-col items-center max-w-5xl px-8 mx-auto z-20 pointer-events-none pt-16">
         <p className="text-base text-center font-medium font-secondary text-grey pb-4">
           [MY PROJECTS]
